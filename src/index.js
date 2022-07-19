@@ -27,8 +27,6 @@ module.exports = (maxColumns, userOptions = {})=> {
                     wrapped[i] += reset
                 }
             }
-
-            wrapped[i] = wrapped[i]
         }
 
         return wrapped
