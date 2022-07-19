@@ -49,14 +49,14 @@ module.exports = (maxColumns, userOptions = {})=> {
                 continue
             }
 
-            if (options.first === true) {
-                break
-            }
-
             if (wl > columns || options.hard === true) {
                 wordwrap(word)
 
                 continue
+            }
+
+            if (options.first === true) {
+                break
             }
 
             next()
@@ -75,6 +75,10 @@ module.exports = (maxColumns, userOptions = {})=> {
 
             if (inside === false) {
                 if (remaining === 0) {
+                    if (options.first === true) {
+                        break
+                    }
+
                     next()
                 }
 
