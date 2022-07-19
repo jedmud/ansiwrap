@@ -9,10 +9,12 @@ module.exports = (maxColumns, userOptions = {})=> {
     options = Object.assign({ first: false, hard: false }, userOptions)
 
     const normalize = wrapped => {
-        for (let i = 0, l = wrapped.length; i < l; i++) {
-            wrapped[i] = wrapped[i].trimEnd()
+        const words = options.first === true ? [wrapped[0]] : wrapped
 
-            const matches = wrapped[i].match(regex)
+        for (let i = 0, l = words.length; i < l; i++) {
+            words[i] = words[i].replace(/\s+$/, '')
+
+            const matches = words[i].match(regex)
 
             if (matches !== null) {
                 const match = matches[matches.length - 1]
@@ -20,16 +22,16 @@ module.exports = (maxColumns, userOptions = {})=> {
                 if (match !== reset) {
                     const j = i + 1
 
-                    if (wrapped[j] !== undefined) {
-                        wrapped[j] = match + wrapped[j]
+                    if (words[j] !== undefined) {
+                        words[j] = match + words[j]
                     }
 
-                    wrapped[i] += reset
+                    words[i] += reset
                 }
             }
         }
 
-        return wrapped
+        return words
     }
 
     const wrap = words => {
@@ -38,13 +40,12 @@ module.exports = (maxColumns, userOptions = {})=> {
             const wl = strip(word).length
 
             if (wl <= remaining) {
-                remaining -= wl
-                wrapped[current] += word
+                add(word, wl)
 
-                if (remaining > 0) {
-                    remaining--
-                    wrapped[current] += ' '
-                }
+                continue
+            } else if (wl <= columns && options.hard !== true) {
+                next()
+                add(word, wl)
 
                 continue
             }
@@ -53,10 +54,6 @@ module.exports = (maxColumns, userOptions = {})=> {
                 wordwrap(word)
 
                 continue
-            }
-
-            if (options.first === true) {
-                break
             }
 
             next()
@@ -75,10 +72,6 @@ module.exports = (maxColumns, userOptions = {})=> {
 
             if (inside === false) {
                 if (remaining === 0) {
-                    if (options.first === true) {
-                        break
-                    }
-
                     next()
                 }
 
@@ -98,7 +91,17 @@ module.exports = (maxColumns, userOptions = {})=> {
         }
     }
 
-    const next = ()=> {
+    const add = (word, wl)=> {
+        remaining -= wl
+        wrapped[current] += word
+
+        if (remaining > 0) {
+            remaining--
+            wrapped[current] += ' '
+        }
+    }
+
+    const next = () => {
         wrapped.push('')
         current++
         remaining = columns
