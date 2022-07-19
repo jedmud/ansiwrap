@@ -1,12 +1,14 @@
 # AnsiWrap
 
-Fast single line wordwrap for colored strings with ANSI escape codes.
+Fast single line wordwrap for strings with ANSI escape codes.
 
 ## Install
 
 npm i @jedmud/ansiwrap
 
 ## Usage
+
+AnsiWrap accepts a string without newline and carriage return characters. If your string has any, you need to split/clean the string before passing it to AnsiWrap.
 
 ```javascript
 const ansiwrap = require('@jedmud/ansiwrap')
@@ -16,7 +18,7 @@ const options = { hard: false, first: false }
 
 const wrap = ansiwrap(columns, options)
 
-const res = wrap(<String with colored ansi escape codes>)
+const res = wrap(<A string with ANSI escape codes>)
 ```
 
 ## Options
