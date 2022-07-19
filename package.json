@@ -1,6 +1,6 @@
 {
   "name": "@jedmud/ansiwrap",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Fast single line wordwrap for colored strings with ANSI escape codes.",
   "main": "src/index.js",
   "scripts": {
@@ -13,7 +13,7 @@
   "author": "Tanel Tammik",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jedmud/ansiwrap/issues"
+    "url": "https://github.com/jedmud/tui/issues"
   },
   "homepage": "https://github.com/jedmud/ansiwrap#readme",
   "keywords": [

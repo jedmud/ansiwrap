@@ -2,6 +2,8 @@
 
 Fast single line wordwrap for strings with ANSI escape codes.
 
+Issues: https://github.com/jedmud/tui/issues
+
 ## Install
 
 npm i @jedmud/ansiwrap
